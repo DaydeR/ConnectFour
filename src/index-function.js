@@ -3,25 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 const Board = () => {
-	const [grid, setGrid] = useState(Array.from(Array(7), () => new Array(6)));
+	const [grid, setGrid] = useState([[null,null,null,null,null,null],[null,null,null,null,null,null],[null,null,null,null,null,null],[null,null,null,null,null,null],[null,null,null,null,null,null],[null,null,null,null,null,null],[null,null,null,null,null,null]]);
 	const [redTurn, setRedTurn] = useState(true);
 	
 	const renderSquare = (i, j) => {
 		return (
-			<button className="square" onClick={() => handleClick(i,j)}>
-				{grid[i][j]}
+			<button className="square" onClick=handleClick(i,j)>
+				{i},{j}
 			</button>
 		)
 	}
 	
 	const handleClick = (i, j) => {
-		if (grid[i][j]) {
+		const squares = this.state.squares.slice();
+		if (calculateWinner(squares) || squares[i]) {
 			return;
 		}
-		const gridSlice = grid.slice();
-		gridSlice[i][j] = redTurn ? '🔴' : '🔵';
-		setGrid(gridSlice);
-		setRedTurn(!redTurn);
+		squares[i] = this.state.xTurn ? 'ðŸ”´' : 'ðŸ”µ';
+		this.setState({
+			squares: squares,
+			xTurn: !this.state.xTurn,
+		});
 	}
 	
 	return (
