@@ -5,6 +5,7 @@ import './index.css';
 const Board = () => {
 	const [grid, setGrid] = useState(Array.from(Array(7), () => new Array(6)));
 	const [redTurn, setRedTurn] = useState(true);
+	const [winner, setWinner] = useState(null);
 	
 	const renderSquare = (i, j) => {
 		return (
@@ -15,13 +16,51 @@ const Board = () => {
 	}
 	
 	const handleClick = (i, j) => {
-		if (grid[i][j]) {
+		if (winner || grid[i][j]) {
 			return;
 		}
 		const gridSlice = grid.slice();
 		gridSlice[i][j] = redTurn ? '🔴' : '🔵';
+		checkWinner(i, j);
 		setGrid(gridSlice);
 		setRedTurn(!redTurn);
+	}
+	
+	const checkWinner = (i, j) => {
+		const hStart = Math.max((i-3),0);
+		const hEnd = Math.min(i,3);
+		for(var k = hStart; k <= hEnd; k ++) {
+			if(grid[k][j] == grid[k+1][j] && grid[k+1][j] == grid[k+2][j] && grid[k+2][j] == grid[k+3][j]) {
+				console.log("firstmew has winned");
+				setWinner("yes");
+				break;
+			}
+		}
+		const vStart = Math.max((j-3),0);
+		const vEnd = Math.min(j,2);
+		for(var k = vStart; k <= vEnd; k ++) {
+			if(grid[i][k] == grid[i][k+1] && grid[i][k+1] == grid[i][k+2] && grid[i][k+2] == grid[i][k+3]) {
+				console.log("secondmew has winned");
+				setWinner("yes");
+				break;
+			}
+		}
+		const dneStart = Math.min(i, j, 3);
+		const dneEnd = (3 - Math.min((7-i-1), (6-j-1), 3));
+		console.log("start: "+dneStart);
+		console.log("end: "+dneEnd);
+		for(var k = dneStart; k >= dneEnd; k --) {
+			console.log(k);
+			console.log("k: "+grid[i-k][j-k]);
+			console.log("k+1: "+grid[i-k+1][j-k+1]);
+			console.log("k+2: "+grid[i-k+2][j-k+2]);
+			console.log("k+3: "+grid[i-k+3][j-k+3]);
+			if(grid[i-k][j-k] == grid[i-k+1][j-k+1] && grid[i-k+1][j-k+1] == grid[i-k+2][j-k+2] && grid[i-k+2][j-k+2] == grid[i-k+3][j-k+3]) {
+				console.log("thirdmew has winned");
+				setWinner("yes");
+				break;
+			}
+		}
 	}
 	
 	return (
