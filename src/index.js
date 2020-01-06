@@ -31,8 +31,11 @@ const Board = () => {
 		}
 		const gridSlice = grid.slice();
 		gridSlice[i][j] = redTurn ? '🔴' : '🔵';
-		checkWinner(i, j);
 		setGrid(gridSlice);
+		checkWinner(i, j);
+		if(!winner) {
+			checkFull();
+		}
 		setRedTurn(!redTurn);
 	}
 	
@@ -71,9 +74,19 @@ const Board = () => {
 		}
 	}
 	
+	const checkFull = () => {
+		for(var k = 0; k < 7; k++) {
+			if(!grid[k][5]){
+				console.log("not full");
+				return;
+			}
+		}
+		setWinner("No One");
+	}
+	
 	return (
 		<div>
-			<div className="status">STATUS</div>
+			<div className="status">{winner ? winner+" Wins!" : (redTurn ? "Red's Turn" : "Blue's Turn")}</div>
 			<div className="board-row">
 				{renderSquare(0, 5)}
 				{renderSquare(1, 5)}

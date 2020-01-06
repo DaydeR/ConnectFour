@@ -5,7 +5,8 @@ Current Features:
 
 You can put pieces into the grid!
 All methods of winning the game have been implemented!
-Game is fully functional!
+Also checks for draws!
+Game is fully functional! (For real this time)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
