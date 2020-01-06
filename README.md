@@ -3,8 +3,9 @@ Connect Four Game
 
 Current Features:
 
-You can put pieces into the grid! (Note: Gravity not yet implemented)
+You can put pieces into the grid!
 All methods of winning the game have been implemented!
+Game is fully functional!
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

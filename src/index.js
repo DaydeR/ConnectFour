@@ -9,14 +9,24 @@ const Board = () => {
 	
 	const renderSquare = (i, j) => {
 		return (
-			<button className="square" onClick={() => handleClick(i,j)}>
+			<button className="square" onClick={() => handleClick(i)}>
 				{grid[i][j]}
 			</button>
 		)
 	}
 	
-	const handleClick = (i, j) => {
-		if (winner || grid[i][j]) {
+	const handleClick = (i) => {
+		if (winner) {
+			return;
+		}
+		var j = null;
+		for(var k = 0; k < 6; k++) {
+			if(!grid[i][k]) {
+				j = k;
+				break;
+			}
+		}
+		if(j == null) {
 			return;
 		}
 		const gridSlice = grid.slice();
@@ -30,36 +40,32 @@ const Board = () => {
 		const hStart = Math.max((i-3),0);
 		const hEnd = Math.min(i,3);
 		for(var k = hStart; k <= hEnd; k ++) {
-			if(grid[k][j] == grid[k+1][j] && grid[k+1][j] == grid[k+2][j] && grid[k+2][j] == grid[k+3][j]) {
-				console.log("firstmew has winned");
-				setWinner("yes");
+			if(grid[k][j] === grid[k+1][j] && grid[k+1][j] === grid[k+2][j] && grid[k+2][j] === grid[k+3][j]) {
+				setWinner(redTurn ? "Red" : "Blue");
 				break;
 			}
 		}
 		const vStart = Math.max((j-3),0);
 		const vEnd = Math.min(j,2);
-		for(var k = vStart; k <= vEnd; k ++) {
-			if(grid[i][k] == grid[i][k+1] && grid[i][k+1] == grid[i][k+2] && grid[i][k+2] == grid[i][k+3]) {
-				console.log("secondmew has winned");
-				setWinner("yes");
+		for(k = vStart; k <= vEnd; k ++) {
+			if(grid[i][k] === grid[i][k+1] && grid[i][k+1] === grid[i][k+2] && grid[i][k+2] === grid[i][k+3]) {
+				setWinner(redTurn ? "Red" : "Blue");
 				break;
 			}
 		}
 		const dneStart = Math.min(i, j, 3);
 		const dneEnd = (3 - Math.min((7-i-1), (6-j-1), 3));
-		for(var k = dneStart; k >= dneEnd; k --) {
-			if(grid[i-k][j-k] == grid[i-k+1][j-k+1] && grid[i-k+1][j-k+1] == grid[i-k+2][j-k+2] && grid[i-k+2][j-k+2] == grid[i-k+3][j-k+3]) {
-				console.log("thirdmew has winned");
-				setWinner("yes");
+		for(k = dneStart; k >= dneEnd; k --) {
+			if(grid[i-k][j-k] === grid[i-k+1][j-k+1] && grid[i-k+1][j-k+1] === grid[i-k+2][j-k+2] && grid[i-k+2][j-k+2] === grid[i-k+3][j-k+3]) {
+				setWinner(redTurn ? "Red" : "Blue");
 				break;
 			}
 		}
 		const dnwStart = Math.min(i, (6-j-1), 3);
 		const dnwEnd = (3 - Math.min((7-i-1), j, 3));
-		for(var k = dnwStart; k >= dnwEnd; k --) {
-			if(grid[i-k][j+k] == grid[i-k+1][j+k-1] && grid[i-k+1][j+k-1] == grid[i-k+2][j+k-2] && grid[i-k+2][j+k-2] == grid[i-k+3][j+k-3]) {
-				console.log("fourthmew has winned");
-				setWinner("yes");
+		for(k = dnwStart; k >= dnwEnd; k --) {
+			if(grid[i-k][j+k] === grid[i-k+1][j+k-1] && grid[i-k+1][j+k-1] === grid[i-k+2][j+k-2] && grid[i-k+2][j+k-2] === grid[i-k+3][j+k-3]) {
+				setWinner(redTurn ? "Red" : "Blue");
 				break;
 			}
 		}
