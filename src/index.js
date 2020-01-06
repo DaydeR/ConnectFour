@@ -47,16 +47,18 @@ const Board = () => {
 		}
 		const dneStart = Math.min(i, j, 3);
 		const dneEnd = (3 - Math.min((7-i-1), (6-j-1), 3));
-		console.log("start: "+dneStart);
-		console.log("end: "+dneEnd);
 		for(var k = dneStart; k >= dneEnd; k --) {
-			console.log(k);
-			console.log("k: "+grid[i-k][j-k]);
-			console.log("k+1: "+grid[i-k+1][j-k+1]);
-			console.log("k+2: "+grid[i-k+2][j-k+2]);
-			console.log("k+3: "+grid[i-k+3][j-k+3]);
 			if(grid[i-k][j-k] == grid[i-k+1][j-k+1] && grid[i-k+1][j-k+1] == grid[i-k+2][j-k+2] && grid[i-k+2][j-k+2] == grid[i-k+3][j-k+3]) {
 				console.log("thirdmew has winned");
+				setWinner("yes");
+				break;
+			}
+		}
+		const dnwStart = Math.min(i, (6-j-1), 3);
+		const dnwEnd = (3 - Math.min((7-i-1), j, 3));
+		for(var k = dnwStart; k >= dnwEnd; k --) {
+			if(grid[i-k][j+k] == grid[i-k+1][j+k-1] && grid[i-k+1][j+k-1] == grid[i-k+2][j+k-2] && grid[i-k+2][j+k-2] == grid[i-k+3][j+k-3]) {
+				console.log("fourthmew has winned");
 				setWinner("yes");
 				break;
 			}
